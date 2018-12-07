@@ -39,6 +39,12 @@ OR
 
 ## Instructions
 
+### DEMO
+
+Here is the codepen link for the current working demo.
+
+[Basic Slider Demo](https://codepen.io/cooldhavs/full/vvBKzr "Basic Slider Demo")
+
 Space for Demos, Settings and methods for the slider.
 
 **_NOTE: This is purely educational and learning purpose. Don't use this in production._**

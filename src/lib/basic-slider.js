@@ -138,7 +138,8 @@ export class BasicSlider{
       this.sliderInner.style.left = -this.slideW * (this.curSlide - 1) + "px";
       if (this.config.autoHeight) {
         $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide - 1].offsetHeight + "px";
-        $(this.config.selector).style.width = $(this.config.selector).querySelectorAll('.item')[this.curSlide - 1].offsetWidth + "px";
+        // Don't need to add width to selector, let it be 100%
+        // $(this.config.selector).style.width = $(this.config.selector).querySelectorAll('.item')[this.curSlide - 1].offsetWidth + "px";
       } else {
         for (var i = 0; i < this.innerElements.length; i++) {
           if (this.innerElements[i].offsetHeight > this.config.selector.offsetHeight) {

@@ -78,7 +78,7 @@ export class BasicSlider{
 
       $(this.config.dotsWrapper).addEventListener('click', e => {
         if (e.target && e.target.nodeName == "LI") {
-          this.curSlide = e.target.getAttribute('data-slide');
+          this.curSlide = parseInt(e.target.getAttribute('data-slide'));
           this.goToSlide();
         }
       }, false);
@@ -99,9 +99,7 @@ export class BasicSlider{
       }, this.config.transition.speed);
       this.setDot();
       this.updateArrowClass();
-      if (this.config.autoHeight) {
-        $(this.config.selector).style.height = this.innerElements[this.curSlide - 1].offsetHeight + "px";
-      }
+      this.updateSliderDimension();
       this.config.afterChangeSlide(this);
     }
 
@@ -133,16 +131,18 @@ export class BasicSlider{
     }
 
     updateSliderDimension() {
-      console.log("Update dimension");
+      console.log("Updated dimension");
       this.slideW = parseInt($(this.config.selector).querySelectorAll('.item')[0].offsetWidth);
       console.log("this.slideW --> ", this.slideW);
       this.sliderInner.style.left = -this.slideW * (this.curSlide - 1) + "px";
       if (this.config.autoHeight) {
-        console.log("this.curSlide inside DIMENSION -> ", this.curSlide);
-        $(this.config.selector).style.height = this.innerElements[this.curSlide].offsetHeight + "px";
+        // console.log("this.curSlide inside DIMENSION -> ", this.curSlide);
+        // console.log("$(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight -> ", $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight);
+        $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight + "px";
+        $(this.config.selector).style.width = $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetWidth + "px";
       } else {
         for (var i = 0; i < this.innerElements.length; i++) {
-          if (this.innerElements[i].offsetHeight > this.config.target.offsetHeight) {
+          if (this.innerElements[i].offsetHeight > this.config.selector.offsetHeight) {
             this.config.target.style.height = this.innerElements[i].offsetHeight + "px";
           }
         }

@@ -28,9 +28,8 @@ body {
 }
 
 #app {
-  max-width: 620;
-  width: 620px;
   margin: 0 auto;
+  position: relative;
 }
 
 .slider {
@@ -41,7 +40,6 @@ body {
 
 
 body {
-  min-height: 100vh;
   margin: 0;
 }
 
@@ -82,7 +80,6 @@ body {
   margin: 0 auto;
   cursor: pointer;
   overflow: hidden;
-  min-height: 100vh;
 }
 
 .slider .slider-inner {

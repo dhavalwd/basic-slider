@@ -47,7 +47,7 @@ export class BasicSlider{
           speed: 300,
           easing: 'ease-in'
         },
-        swipe: true,
+        swipe: false,
         autoHeight: true,
         loop: false,
         afterChangeSlide: function afterChangeSlide() {}

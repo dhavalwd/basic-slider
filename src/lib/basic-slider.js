@@ -117,17 +117,7 @@ export class BasicSlider{
         }
       }
 
-      var img = el.querySelector('img');
-      if (img) {
-        img.onload = loadHandler;
-        img.src = img.getAttribute('data-src');
-        img.style.display = 'block';
-        if (img.complete) {
-          loadHandler();
-        }
-      } else {
-        this.updateSliderDimension();
-      }
+      this.updateSliderDimension();
     }
 
     updateSliderDimension() {

@@ -106,7 +106,7 @@ export class BasicSlider{
     loadedImg(el) {
       console.log("el -> ",el);
       var loaded = false;
-      function loadHandler() {
+      let loadHandler = () => {
         if (loaded) {
           return;
         }
@@ -119,11 +119,12 @@ export class BasicSlider{
 
       var img = el.querySelector('img');
       if (img) {
-        img.onload = loadHandler.bind(this);
-        img.src = img.getAttribute('data-src');
+        img.onload = loadHandler;
+        img.src = img.getAttribute('src');
         img.style.display = 'block';
         if (img.complete) {
-          loadHandler().bind(this);
+          loadHandler();
+          this.updateSliderDimension();
         }
       } else {
         this.updateSliderDimension();

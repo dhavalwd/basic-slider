@@ -29,7 +29,7 @@ Very easy setup. This is work in progress. For now, use same classnames and item
 
 _This is minified version._
 
-`<script type="text/javascript" src="https://unpkg.com/@dhavalvyas/basic-slider@1.0.0/dist/index.js"></script>`
+`<script type="text/javascript" src="https://unpkg.com/@dhavalvyas/basic-slider/dist/index.js"></script>`
 
 OR
 

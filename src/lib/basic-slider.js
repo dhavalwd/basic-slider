@@ -141,9 +141,9 @@ export class BasicSlider{
         console.log("this.curSlide inside DIMENSION -> ", this.curSlide);
         $(this.config.selector).style.height = this.innerElements[this.curSlide].offsetHeight + "px";
       } else {
-        for (var i = 0; i < this.innerElements.length + 2; i++) {
-          if (this.allSlides[i].offsetHeight > this.config.target.offsetHeight) {
-            this.config.target.style.height = this.allSlides[i].offsetHeight + "px";
+        for (var i = 0; i < this.innerElements.length; i++) {
+          if (this.innerElements[i].offsetHeight > this.config.target.offsetHeight) {
+            this.config.target.style.height = this.innerElements[i].offsetHeight + "px";
           }
         }
       }

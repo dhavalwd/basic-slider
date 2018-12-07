@@ -117,11 +117,21 @@ export class BasicSlider{
         }
       }
 
-      this.updateSliderDimension();
+      var img = el.querySelector('img');
+      if (img) {
+        img.onload = loadHandler.bind(this);
+        img.src = img.getAttribute('data-src');
+        img.style.display = 'block';
+        if (img.complete) {
+          loadHandler().bind(this);
+        }
+      } else {
+        this.updateSliderDimension();
+      }
     }
 
     updateSliderDimension() {
-      console.log("Updated dimension");
+      console.log("Updateddddd dimension");
       this.slideW = parseInt($(this.config.selector).querySelectorAll('.item')[0].offsetWidth);
       console.log("this.slideW --> ", this.slideW);
       this.sliderInner.style.left = -this.slideW * (this.curSlide - 1) + "px";

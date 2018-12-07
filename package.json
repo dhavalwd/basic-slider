@@ -4,7 +4,12 @@
   "version": "1.0.0",
   "description": "Basic Slider - Simple Slider with Simple API",
   "main": "dist/index.js",
+  "unpkg": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "prepublish": "npm install && npm run build",
     "build": "NODE_ENV=production webpack",
     "start": "webpack-dev-server"
   },

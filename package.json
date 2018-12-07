@@ -9,8 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "prepare": "npm install && npm run build",
+    "prepare": "npm run build",
     "build": "NODE_ENV=production webpack",
     "start": "webpack-dev-server"
   },

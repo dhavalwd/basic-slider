@@ -136,10 +136,8 @@ export class BasicSlider{
       console.log("this.slideW --> ", this.slideW);
       this.sliderInner.style.left = -this.slideW * (this.curSlide - 1) + "px";
       if (this.config.autoHeight) {
-        // console.log("this.curSlide inside DIMENSION -> ", this.curSlide);
-        // console.log("$(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight -> ", $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight);
-        $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight + "px";
-        $(this.config.selector).style.width = $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetWidth + "px";
+        $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide - 1].offsetHeight + "px";
+        $(this.config.selector).style.width = $(this.config.selector).querySelectorAll('.item')[this.curSlide - 1].offsetWidth + "px";
       } else {
         for (var i = 0; i < this.innerElements.length; i++) {
           if (this.innerElements[i].offsetHeight > this.config.selector.offsetHeight) {

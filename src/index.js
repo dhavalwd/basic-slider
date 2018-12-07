@@ -1,5 +1,5 @@
 // import `.scss` files
-import './scss/styles.scss';
+// import './scss/styles.scss';
 
 // import BasicSlider class
 import { BasicSlider as defaultExport } from './lib/basic-slider';

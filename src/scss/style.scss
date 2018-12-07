@@ -1,0 +1,165 @@
+// global styles
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #111;
+  background-color: #eee;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// plugin level css
+.users-list {
+  width: 400px;
+  min-height: 200px;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 15px 30px;
+  list-style-type: none;
+
+  >li {
+    line-height: 30px;
+  }
+}
+
+#app {
+  max-width: 620;
+  width: 620px;
+  margin: 0 auto;
+}
+
+.slider {
+  >div {
+    display: flex;
+  }
+}
+
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+.dots-wrapper {
+  position: absolute;
+  width: 100px;
+  left: 50%;
+  margin-left: -50px;
+  bottom: 20px;
+  text-align: center;
+}
+
+.dots-wrapper li {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 50%;
+  margin: 0 4px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s;
+
+  &:hover {
+    background-color: rgba(blue, 0.4);
+  }
+}
+
+.dots-wrapper li.active,
+.dots-wrapper li:hover {
+  opacity: 1;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.slider .slider-inner {
+  position: absolute;
+}
+
+.slider .slider-inner:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.slider .slider-inner .item {
+  float: left;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.slider .slider-inner .item img {
+  display: block;
+}
+
+.slider .slider-inner .item span {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 3em;
+  letter-spacing: 1vw;
+  font-family: Impact, Charcoal, sans-serif;
+  text-shadow: 5px 5px 0px #ffffff;
+  z-index: 10;
+}
+
+a[class|=arrow] {
+  position: absolute;
+  display: block;
+  top: 50%;
+  margin-top: -20px;
+  width: 40px;
+  height: 40px;
+  transition: border 0.3s ease-in;
+
+  &.is-disabled {
+    border-color: rgba(#000, 0.1);
+  }
+}
+
+.arrow-left {
+  left: 20px;
+  border-bottom: 6px solid #ffffff;
+  border-left: 6px solid #ffffff;
+  transform: rotate(45deg);
+  transition: left 0.5s;
+}
+
+.arrow-left:hover {
+  // left: 15px;
+  border-color: rgba(blue, 0.4);
+}
+
+.arrow-right {
+  right: 20px;
+  border-bottom: 6px solid #ffffff;
+  border-right: 6px solid #ffffff;
+  transform: rotate(-45deg);
+  transition: right 0.5s;
+}
+
+.arrow-right:hover {
+  // right: 15px;
+  border-color: rgba(blue, 0.4);
+}

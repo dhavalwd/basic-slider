@@ -112,13 +112,14 @@ body {
   user-select: none;
   display: block;
   position: absolute;
-  top: 10px;
-  left: 20px;
+  top: 50%;
+  left: 50%;
   font-size: 3em;
   letter-spacing: 1vw;
   font-family: Impact, Charcoal, sans-serif;
   text-shadow: 5px 5px 0px #ffffff;
   z-index: 10;
+  transform: translate(-50%, -50%);
 }
 
 a[class|=arrow] {

@@ -291,6 +291,14 @@ export class BasicSlider{
       removeListenerMulti($('body'), 'mouseup touchend', this.swipeEnd.bind(this));
     }
 
+    on_resize(c, t) {
+      onresize = function() {
+        clearTimeout(t);
+        t = setTimeout(c, 100);
+      }
+      return onresize;
+    }
+
     init() {
       console.log("this ------> ", this);
       // Wrap all slides into slider-inner
@@ -311,6 +319,10 @@ export class BasicSlider{
         this.innerElements[_i].style.width = (100 / this.innerElements.length) + "%";
         this.loadedImg(this.innerElements[_i]);
       }
+
+      window.addEventListener("resize", this.on_resize( () => {
+        this.updateSliderDimension();
+      }), false);
 
       // Update relavant dimension
       this.updateSliderDimension();

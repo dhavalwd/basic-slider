@@ -6,7 +6,7 @@ Basic Slider - Simple Slider with Sinple API
 
 ## Installations
 
-Very easy setup. This is work in progress. For now, use same classnames and items. CSS is not included in the library at this moment (will be added in future if needed).
+Very easy setup. This is work in progress. For now, use same classnames and items. CSS is not included in the library.
 
 ### HTML Markup
 
@@ -31,7 +31,9 @@ Very easy setup. This is work in progress. For now, use same classnames and item
 
 _This is minified version._
 
-`<script type="text/javascript" src="https://unpkg.com/@dhavalvyas/basic-slider/dist/index.js"></script>`
+```html
+<script type="text/javascript" src="https://unpkg.com/@dhavalvyas/basic-slider/dist/index.js"></script>
+```
 
 OR
 

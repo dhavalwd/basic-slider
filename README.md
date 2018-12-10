@@ -2,6 +2,8 @@
 
 Basic Slider - Simple Slider with Sinple API
 
+**_NOTE: This is purely educational and learning purpose. Don't use this in production._**
+
 ## Installations
 
 Very easy setup. This is work in progress. For now, use same classnames and items. CSS is not included in the library at this moment (will be added in future if needed).
@@ -46,5 +48,3 @@ Here is the codepen link for the current working demo.
 [Basic Slider Demo](https://codepen.io/cooldhavs/full/vvBKzr "Basic Slider Demo")
 
 Space for Demos, Settings and methods for the slider.
-
-**_NOTE: This is purely educational and learning purpose. Don't use this in production._**

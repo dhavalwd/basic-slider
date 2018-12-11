@@ -20267,22 +20267,7 @@ var Components = {'Slider': require('./components/Slider.js')}; // DOM ready...
   for (var c in Components) {
     Components[c].init();
   }
-}); // Common Global Functionality
-// Custom select box
-
-_App.default.dom.customSelect(); // Custom Checkbox
-
-
-_App.default.dom.customCheckbox(); // Scroll to target
-
-
-_App.default.dom.scrollTo(); // Global matchHeight settings
-
-
-_App.default.dom.matchHeight(); // Add <wbr> for all mailto links before @ for gracefully break
-
-
-_App.default.dom.addWbr();
+});
 
 },{"./components/Slider.js":259,"./lib/App.js":260,"@babel/runtime/helpers/interopRequireDefault":1,"core-js/modules/es6.array.copy-within":120,"core-js/modules/es6.array.fill":121,"core-js/modules/es6.array.find":123,"core-js/modules/es6.array.find-index":122,"core-js/modules/es6.array.from":124,"core-js/modules/es6.array.iterator":125,"core-js/modules/es6.array.of":126,"core-js/modules/es6.array.sort":127,"core-js/modules/es6.array.species":128,"core-js/modules/es6.date.to-json":129,"core-js/modules/es6.date.to-primitive":130,"core-js/modules/es6.function.has-instance":131,"core-js/modules/es6.function.name":132,"core-js/modules/es6.map":133,"core-js/modules/es6.math.acosh":134,"core-js/modules/es6.math.asinh":135,"core-js/modules/es6.math.atanh":136,"core-js/modules/es6.math.cbrt":137,"core-js/modules/es6.math.clz32":138,"core-js/modules/es6.math.cosh":139,"core-js/modules/es6.math.expm1":140,"core-js/modules/es6.math.fround":141,"core-js/modules/es6.math.hypot":142,"core-js/modules/es6.math.imul":143,"core-js/modules/es6.math.log10":144,"core-js/modules/es6.math.log1p":145,"core-js/modules/es6.math.log2":146,"core-js/modules/es6.math.sign":147,"core-js/modules/es6.math.sinh":148,"core-js/modules/es6.math.tanh":149,"core-js/modules/es6.math.trunc":150,"core-js/modules/es6.number.constructor":151,"core-js/modules/es6.number.epsilon":152,"core-js/modules/es6.number.is-finite":153,"core-js/modules/es6.number.is-integer":154,"core-js/modules/es6.number.is-nan":155,"core-js/modules/es6.number.is-safe-integer":156,"core-js/modules/es6.number.max-safe-integer":157,"core-js/modules/es6.number.min-safe-integer":158,"core-js/modules/es6.number.parse-float":159,"core-js/modules/es6.number.parse-int":160,"core-js/modules/es6.object.assign":161,"core-js/modules/es6.object.freeze":162,"core-js/modules/es6.object.get-own-property-descriptor":163,"core-js/modules/es6.object.get-own-property-names":164,"core-js/modules/es6.object.get-prototype-of":165,"core-js/modules/es6.object.is":169,"core-js/modules/es6.object.is-extensible":166,"core-js/modules/es6.object.is-frozen":167,"core-js/modules/es6.object.is-sealed":168,"core-js/modules/es6.object.keys":170,"core-js/modules/es6.object.prevent-extensions":171,"core-js/modules/es6.object.seal":172,"core-js/modules/es6.object.set-prototype-of":173,"core-js/modules/es6.promise":174,"core-js/modules/es6.reflect.apply":175,"core-js/modules/es6.reflect.construct":176,"core-js/modules/es6.reflect.define-property":177,"core-js/modules/es6.reflect.delete-property":178,"core-js/modules/es6.reflect.get":181,"core-js/modules/es6.reflect.get-own-property-descriptor":179,"core-js/modules/es6.reflect.get-prototype-of":180,"core-js/modules/es6.reflect.has":182,"core-js/modules/es6.reflect.is-extensible":183,"core-js/modules/es6.reflect.own-keys":184,"core-js/modules/es6.reflect.prevent-extensions":185,"core-js/modules/es6.reflect.set":187,"core-js/modules/es6.reflect.set-prototype-of":186,"core-js/modules/es6.regexp.constructor":188,"core-js/modules/es6.regexp.flags":190,"core-js/modules/es6.regexp.match":191,"core-js/modules/es6.regexp.replace":192,"core-js/modules/es6.regexp.search":193,"core-js/modules/es6.regexp.split":194,"core-js/modules/es6.regexp.to-string":195,"core-js/modules/es6.set":196,"core-js/modules/es6.string.anchor":197,"core-js/modules/es6.string.big":198,"core-js/modules/es6.string.blink":199,"core-js/modules/es6.string.bold":200,"core-js/modules/es6.string.code-point-at":201,"core-js/modules/es6.string.ends-with":202,"core-js/modules/es6.string.fixed":203,"core-js/modules/es6.string.fontcolor":204,"core-js/modules/es6.string.fontsize":205,"core-js/modules/es6.string.from-code-point":206,"core-js/modules/es6.string.includes":207,"core-js/modules/es6.string.italics":208,"core-js/modules/es6.string.iterator":209,"core-js/modules/es6.string.link":210,"core-js/modules/es6.string.raw":211,"core-js/modules/es6.string.repeat":212,"core-js/modules/es6.string.small":213,"core-js/modules/es6.string.starts-with":214,"core-js/modules/es6.string.strike":215,"core-js/modules/es6.string.sub":216,"core-js/modules/es6.string.sup":217,"core-js/modules/es6.symbol":218,"core-js/modules/es6.typed.array-buffer":219,"core-js/modules/es6.typed.float32-array":220,"core-js/modules/es6.typed.float64-array":221,"core-js/modules/es6.typed.int16-array":222,"core-js/modules/es6.typed.int32-array":223,"core-js/modules/es6.typed.int8-array":224,"core-js/modules/es6.typed.uint16-array":225,"core-js/modules/es6.typed.uint32-array":226,"core-js/modules/es6.typed.uint8-array":227,"core-js/modules/es6.typed.uint8-clamped-array":228,"core-js/modules/es6.weak-map":229,"core-js/modules/es6.weak-set":230,"core-js/modules/es7.array.includes":231,"core-js/modules/es7.object.define-getter":232,"core-js/modules/es7.object.define-setter":233,"core-js/modules/es7.object.entries":234,"core-js/modules/es7.object.get-own-property-descriptors":235,"core-js/modules/es7.object.lookup-getter":236,"core-js/modules/es7.object.lookup-setter":237,"core-js/modules/es7.object.values":238,"core-js/modules/es7.promise.finally":239,"core-js/modules/es7.string.pad-end":240,"core-js/modules/es7.string.pad-start":241,"core-js/modules/es7.symbol.async-iterator":242,"core-js/modules/web.dom.iterable":243,"core-js/modules/web.immediate":244,"core-js/modules/web.timers":245,"custom-event-polyfill":246,"es6-promise":247,"jquery":249,"regenerator-runtime/runtime":255}],259:[function(require,module,exports){
 "use strict";
@@ -20303,7 +20288,14 @@ module.exports = function () {
       }
 
       new _basicSlider.default({
-        loop: true
+        loop: true,
+        transition: {
+          speed: 800,
+          easing: 'ease-in'
+        },
+        onSlideChange: function onSlideChange(slider) {
+          console.log("This is Slider data ---> ", slider);
+        }
       });
     }
   };

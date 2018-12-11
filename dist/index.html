@@ -196,7 +196,14 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       new BasicSlider({
-        loop: true
+        loop: true,
+        transition: {
+          speed: 800,
+          easing: 'cubic-bezier(0.6, -0.28, 0.74, 0.05)'
+        },
+        afterChangeSlide: (slider) => {
+          console.log("This is Slider data ---> ", slider);
+        }
       })
     });
 

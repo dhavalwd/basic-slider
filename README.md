@@ -49,4 +49,19 @@ Here is the codepen link for the current working demo.
 
 [Basic Slider Demo](https://codepen.io/cooldhavs/full/vvBKzr "Basic Slider Demo")
 
-Space for Demos, Settings and methods for the slider.
+## Options
+
+Some options you can use.
+
+```javascript
+new BasicSlider({
+  loop: true,
+  transition: {
+    speed: 800,
+    easing: 'ease-in'
+  },
+  afterChangeSlide: (slider) => {
+    console.log("This is Slider data ---> ", slider);
+  }
+})
+```

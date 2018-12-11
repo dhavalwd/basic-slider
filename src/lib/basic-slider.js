@@ -217,7 +217,6 @@ export class BasicSlider{
           }
         }
       }
-      this.config.afterChangeSlide(this);
     }
 
     goToSlide() {

@@ -24,9 +24,8 @@ export class BasicSlider{
       // Create global references
       this.selectWidth = this.selector.offsetWidth;
       this.innerElements = [].slice.call(this.selector.children);
+      this.totalSlides = this.innerElements.length;
       this.transformProperty = BasicSlider.transformSupport();
-
-      console.log("BasicSlider.transformSupport() -> ", BasicSlider.transformSupport());
 
       this.init();
     }
@@ -70,7 +69,7 @@ export class BasicSlider{
     }
 
     buildDots() {
-      for (var i = 0; i < this.innerElements.length; i++) {
+      for (var i = 0; i < this.totalSlides; i++) {
         var dot = document.createElement('li');
         dot.setAttribute('data-slide', i + 1);
         $(this.config.dotsWrapper).appendChild(dot);
@@ -84,27 +83,26 @@ export class BasicSlider{
       }, false);
     }
 
-    getCurLeft() {
-      this.curLeft = parseInt(this.sliderInner.style.left.split('px')[0]);
-      console.log("this.curLeft -> ", this.curLeft);
+    setDot() {
+      var tardot = this.curSlide - 1;
+      for (var j = 0; j < this.totalSlides; j++) {
+        removeClass($(this.config.dotsWrapper).querySelectorAll('li')[j], 'active');
+      }
+
+      if (this.curSlide - 1 < 0) {
+        tardot = this.totalSlides - 1;
+      } else if (this.curSlide - 1 > this.totalSlides - 1) {
+        tardot = 0;
+      }
+      addClass($(this.config.dotsWrapper).querySelectorAll('li')[tardot], 'active');
     }
 
-    goToSlide() {
-      this.sliderInner.style.transition = 'left ' + this.config.transition.speed / 1000 + 's ' + this.config.transition.easing;
-      this.sliderInner.style.left = -(this.curSlide - 1) * this.slideW + 'px';
-      addClass($(this.config.selector), 'isAnimating');
-      setTimeout(() => {
-        this.sliderInner.style.transition = '';
-        removeClass($(this.config.selector), 'isAnimating');
-      }, this.config.transition.speed);
-      this.setDot();
-      this.updateArrowClass();
-      this.updateSliderDimension();
-      this.config.afterChangeSlide(this);
+    getCurLeft() {
+      this.curLeft = parseInt(this.sliderInner.style.left.split('px')[0]);
+      // console.log("this.curLeft -> ", this.curLeft);
     }
 
     loadedImg(el) {
-      console.log("el -> ",el);
       var loaded = false;
       let loadHandler = () => {
         if (loaded) {
@@ -131,48 +129,14 @@ export class BasicSlider{
       }
     }
 
-    updateSliderDimension() {
-      console.log("Updateddddd dimension");
-      this.slideW = parseInt($(this.config.selector).querySelectorAll('.item')[0].offsetWidth);
-      console.log("this.slideW --> ", this.slideW);
-      this.sliderInner.style.left = -this.slideW * (this.curSlide - 1) + "px";
-      if (this.config.autoHeight) {
-        $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide - 1].offsetHeight + "px";
-        // Don't need to add width to selector, let it be 100%
-        // $(this.config.selector).style.width = $(this.config.selector).querySelectorAll('.item')[this.curSlide - 1].offsetWidth + "px";
-      } else {
-        for (var i = 0; i < this.innerElements.length; i++) {
-          if (this.innerElements[i].offsetHeight > this.config.selector.offsetHeight) {
-            this.config.target.style.height = this.innerElements[i].offsetHeight + "px";
-          }
-        }
-      }
-      this.config.afterChangeSlide(this);
-    }
-
-    setDot() {
-      var tardot = this.curSlide - 1;
-      console.log("this.innerElements.length -> ", this.innerElements.length);
-      for (var j = 0; j < this.innerElements.length; j++) {
-        removeClass($(this.config.dotsWrapper).querySelectorAll('li')[j], 'active');
-      }
-
-      if (this.curSlide - 1 < 0) {
-        tardot = this.innerElements.length - 1;
-      } else if (this.curSlide - 1 > this.innerElements.length - 1) {
-        tardot = 0;
-      }
-      addClass($(this.config.dotsWrapper).querySelectorAll('li')[tardot], 'active');
-    }
-
     initArrows() {
       if (this.config.arrowLeft != '') {
         $(this.config.arrowLeft).addEventListener('click', () => {
           if (!hasClass(this.config.selector, 'isAnimating')) {
             if (this.curSlide == 1) {
-              return;
-              // this.curSlide = this.innerElements.length + 1;
-              // this.sliderInner.style.left = -this.curSlide * this.slideW + 'px';
+              this.curSlide = this.totalSlides + 1;
+              // this.goToSlide();
+              this.sliderInner.style.left = -this.curSlide * this.slideW + 'px';
             }
             this.curSlide--;
             setTimeout(() => {
@@ -186,7 +150,8 @@ export class BasicSlider{
         $(this.config.arrowRight).addEventListener('click', () => {
           if (!hasClass(this.config.selector, 'isAnimating')) {
             if (this.curSlide == this.innerElements.length) {
-              return;
+              this.curSlide = 0;
+              this.sliderInner.style.left = -this.curSlide * this.slideW + 'px';
             }
             this.curSlide++;
             setTimeout(() => {
@@ -198,6 +163,10 @@ export class BasicSlider{
     }
 
     updateArrowClass() {
+      // Don't update classes if it's a loop slider
+      if(this.config.loop) {
+        return;
+      }
       if (this.curSlide == this.innerElements.length) {
         if(!hasClass(this.config.arrowRight, 'is-disabled')) {
           addClass($(this.config.arrowRight), 'is-disabled')
@@ -220,6 +189,44 @@ export class BasicSlider{
           removeClass($(this.config.arrowRight), 'is-disabled')
         }
       }
+    }
+
+    on_resize(c, t) {
+      onresize = function() {
+        clearTimeout(t);
+        t = setTimeout(c, 100);
+      }
+      return onresize;
+    }
+
+    updateSliderDimension() {
+      this.slideW = parseInt($(this.config.selector).querySelectorAll('.item')[0].offsetWidth);
+      this.sliderInner.style.left = -this.slideW * this.curSlide + "px";
+      if (this.config.autoHeight) {
+        $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight + "px";
+      } else {
+        for (var i = 0; i < this.totalSlides; i++) {
+          if (this.allSlides[i].offsetHeight > this.config.selector.offsetHeight) {
+            this.config.target.style.height = this.allSlides[i].offsetHeight + "px";
+          }
+        }
+      }
+      this.config.afterChangeSlide(this);
+    }
+
+    goToSlide() {
+      console.log("this.curSlide on Next arrow ---> ", this.curSlide);
+      this.sliderInner.style.transition = 'left ' + this.config.transition.speed / 1000 + 's ' + this.config.transition.easing;
+      this.sliderInner.style.left = -(this.curSlide * this.slideW) + 'px';
+      addClass($(this.config.selector), 'isAnimating');
+      setTimeout(() => {
+        this.sliderInner.style.transition = '';
+        removeClass($(this.config.selector), 'isAnimating');
+      }, this.config.transition.speed);
+      this.setDot();
+      this.updateArrowClass();
+      this.updateSliderDimension();
+      this.config.afterChangeSlide(this);
     }
 
     startSwipe(e) {
@@ -291,14 +298,6 @@ export class BasicSlider{
       removeListenerMulti($('body'), 'mouseup touchend', this.swipeEnd.bind(this));
     }
 
-    on_resize(c, t) {
-      onresize = function() {
-        clearTimeout(t);
-        t = setTimeout(c, 100);
-      }
-      return onresize;
-    }
-
     init() {
       console.log("this ------> ", this);
       // Wrap all slides into slider-inner
@@ -306,18 +305,26 @@ export class BasicSlider{
       $(this.config.selector).innerHTML = `<div class="slider-inner">${defaultMarkup}</div>`;
       this.sliderInner = $(this.config.selector).querySelector('.slider-inner');
 
-      console.log("this.sliderInner -> ", this.sliderInner);
-
       this.loadedCnt = 0;
       this.curSlide = 0;
+
+      if(this.config.loop) {
+        // append clones
+        let cloneFirst = $(this.config.selector).querySelectorAll('.item')[0].cloneNode(true);
+        this.sliderInner.appendChild(cloneFirst);
+        let cloneLast = $(this.config.selector).querySelectorAll('.item')[this.totalSlides - 1].cloneNode(true);
+        this.sliderInner.insertBefore(cloneLast, this.sliderInner.firstChild);
+      }
 
       // Increase curSlide number
       this.curSlide++;
 
-      this.sliderInner.style.width = (this.innerElements.length) * 100 + "%";
-      for (var _i = 0; _i < this.innerElements.length; _i++) {
-        this.innerElements[_i].style.width = (100 / this.innerElements.length) + "%";
-        this.loadedImg(this.innerElements[_i]);
+      this.allSlides = $(this.config.selector).querySelectorAll('.item');
+
+      this.sliderInner.style.width = (this.totalSlides + 2) * 100 + "%";
+      for (var _i = 0; _i < this.totalSlides + 2 ; _i++) {
+        this.allSlides[_i].style.width = 100 / (this.totalSlides + 2) + "%";
+        this.loadedImg(this.allSlides[_i]);
       }
 
       window.addEventListener("resize", this.on_resize( () => {
@@ -330,8 +337,10 @@ export class BasicSlider{
       this.buildDots();
       this.setDot();
       this.initArrows();
-      this.updateArrowClass();
-      // this.getCurLeft();
+
+      if(!this.config.loop) {
+        this.updateArrowClass();
+      }
 
       if (this.config.swipe) {
         addListenerMulti(this.sliderInner, 'mousedown touchstart', this.startSwipe.bind(this));

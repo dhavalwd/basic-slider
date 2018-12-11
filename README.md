@@ -2,7 +2,7 @@
 
 Basic Slider - Simple Slider with Sinple API
 
-**_NOTE: This is purely educational and learning purpose. Don't use this in production._**
+**_NOTE: This is purely for educational and learning purpose. Don't use this in production._**
 
 ## Installations
 

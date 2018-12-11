@@ -134,6 +134,9 @@ export class BasicSlider{
         $(this.config.arrowLeft).addEventListener('click', () => {
           if (!hasClass(this.config.selector, 'isAnimating')) {
             if (this.curSlide == 1) {
+              if(!this.config.loop) {
+                return;
+              }
               this.curSlide = this.totalSlides + 1;
               // this.goToSlide();
               this.sliderInner.style.left = -this.curSlide * this.slideW + 'px';
@@ -150,6 +153,9 @@ export class BasicSlider{
         $(this.config.arrowRight).addEventListener('click', () => {
           if (!hasClass(this.config.selector, 'isAnimating')) {
             if (this.curSlide == this.innerElements.length) {
+              if(!this.config.loop) {
+                return;
+              }
               this.curSlide = 0;
               this.sliderInner.style.left = -this.curSlide * this.slideW + 'px';
             }
@@ -201,7 +207,7 @@ export class BasicSlider{
 
     updateSliderDimension() {
       this.slideW = parseInt($(this.config.selector).querySelectorAll('.item')[0].offsetWidth);
-      this.sliderInner.style.left = -this.slideW * this.curSlide + "px";
+      this.sliderInner.style.left = this.config.loop ? -this.slideW * this.curSlide + "px" : -this.slideW * (this.curSlide - 1) + "px";
       if (this.config.autoHeight) {
         $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight + "px";
       } else {
@@ -307,6 +313,7 @@ export class BasicSlider{
 
       this.loadedCnt = 0;
       this.curSlide = 0;
+      this.totalSlidesCount = this.config.loop ? this.totalSlides + 2 : this.totalSlides;
 
       if(this.config.loop) {
         // append clones
@@ -321,9 +328,10 @@ export class BasicSlider{
 
       this.allSlides = $(this.config.selector).querySelectorAll('.item');
 
-      this.sliderInner.style.width = (this.totalSlides + 2) * 100 + "%";
-      for (var _i = 0; _i < this.totalSlides + 2 ; _i++) {
-        this.allSlides[_i].style.width = 100 / (this.totalSlides + 2) + "%";
+      this.sliderInner.style.width = this.totalSlidesCount * 100 + "%";
+
+      for (var _i = 0; _i < this.totalSlidesCount ; _i++) {
+        this.allSlides[_i].style.width = 100 / this.totalSlidesCount + "%";
         this.loadedImg(this.allSlides[_i]);
       }
 

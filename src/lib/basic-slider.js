@@ -49,7 +49,7 @@ export class BasicSlider{
         swipe: false,
         autoHeight: true,
         loop: false,
-        afterChangeSlide: function afterChangeSlide() {}
+        onSlideChange: function onSlideChange() {}
       };
 
       const userSttings = options;
@@ -231,7 +231,7 @@ export class BasicSlider{
       this.setDot();
       this.updateArrowClass();
       this.updateSliderDimension();
-      this.config.afterChangeSlide(this);
+      this.config.onSlideChange(this);
     }
 
     startSwipe(e) {

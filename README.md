@@ -60,7 +60,7 @@ new BasicSlider({
     speed: 800,
     easing: 'ease-in'
   },
-  afterChangeSlide: (slider) => {
+  onSlideChange: (slider) => {
     console.log("This is Slider data ---> ", slider);
   }
 })

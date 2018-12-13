@@ -5,6 +5,7 @@ import { removeClass } from '../util/removeClass';
 import { hasClass } from '../util/hasClass';
 import { addListenerMulti } from '../util/addListenerMulti';
 import { removeListenerMulti } from '../util/removeListenerMulti';
+import { timingSafeEqual } from 'crypto';
 
 // return BasicSlider class
 export class BasicSlider{
@@ -38,9 +39,9 @@ export class BasicSlider{
       // Default settings
       const settings = {
         selector: '.slider',
-        dotsWrapper: '.dots-wrapper',
-        arrowLeft: '.arrow-left',
-        arrowRight: '.arrow-right',
+        dotsWrapper: false,
+        arrowLeft: false,
+        arrowRight: false,
         transition: {
           speed: 300,
           easing: 'ease-in'
@@ -301,13 +302,45 @@ export class BasicSlider{
     }
 
     buildItems() {
+      // Wrap all slides into slider-inner
+      let defaultMarkup = this.selector.innerHTML;
+      // this.selector.innerHTML = `<div class="slider-inner">${defaultMarkup}</div>`;
+      // this.sliderInner = this.selector.querySelector('.slider-inner');
+      this.sliderInner = document.createElement('div');
+      this.sliderInner.style.width = this.totalSlidesCount * 100 + "%";
+      this.sliderInner.style.position = "absolute";
+
+      const docFragment = document.createDocumentFragment();
       if(this.config.loop) {
-        // append clones
-        let cloneFirst = this.innerElements[0].cloneNode(true);
-        this.sliderInner.appendChild(cloneFirst);
-        let cloneLast = this.innerElements[this.totalSlides - 1].cloneNode(true);
-        this.sliderInner.insertBefore(cloneLast, this.sliderInner.firstChild);
+        for (let i=this.totalSlides - 1; i < this.totalSlides; i++) {
+          const element = this.buildItemWrapper(this.innerElements[i].cloneNode(true));
+          docFragment.appendChild(element);
+        }
       }
+      for (let i = 0; i < this.innerElements.length; i++) {
+        const element = this.buildItemWrapper(this.innerElements[i]);
+        docFragment.appendChild(element);
+      }
+      if (this.config.loop) {
+        for (let i = 0; i < 1; i++) {
+          const element = this.buildItemWrapper(this.innerElements[i].cloneNode(true));
+          docFragment.appendChild(element);
+        }
+      }
+
+      // Clear sliderInner (just in case something is there) and insert a frame
+      this.selector.innerHTML = '';
+      this.sliderInner.appendChild(docFragment);
+      this.selector.appendChild(this.sliderInner);
+    }
+
+    buildItemWrapper(elm) {
+      const elementContainer = document.createElement('div');
+      elementContainer.style.cssFloat = 'left';
+      elementContainer.style.float = 'left';
+      elementContainer.style.width = 100 / this.totalSlidesCount + "%";
+      elementContainer.appendChild(elm);
+      return elementContainer;
     }
 
     // TODO: reInit() method
@@ -326,11 +359,7 @@ export class BasicSlider{
     }
 
     init() {
-      // Wrap all slides into slider-inner
-      let defaultMarkup = this.selector.innerHTML;
-      this.selector.innerHTML = `<div class="slider-inner">${defaultMarkup}</div>`;
-      this.sliderInner = this.selector.querySelector('.slider-inner');
-
+      // Some default values
       this.loadedCnt = 0;
       this.curSlide = 0;
       this.totalSlidesCount = this.config.loop ? this.totalSlides + 2 : this.totalSlides;
@@ -338,16 +367,12 @@ export class BasicSlider{
       // Build items
       this.buildItems();
 
+      this.allSlides = this.sliderInner.children;
+
       // Increase curSlide number
       this.curSlide++;
 
-      this.allSlides = this.sliderInner.children;
-
-      this.sliderInner.style.width = this.totalSlidesCount * 100 + "%";
-
       for (var _i = 0; _i < this.totalSlidesCount ; _i++) {
-        this.allSlides[_i].style.width = 100 / this.totalSlidesCount + "%";
-        this.allSlides[_i].style.cssFloat = "left";
         this.loadedImg(this.allSlides[_i]);
       }
 
@@ -358,16 +383,23 @@ export class BasicSlider{
       // Update relavant dimension
       this.updateSliderDimension();
 
-      this.buildDots();
-      this.setDot();
-      this.initArrows();
+      // Build and set dots only if its true
+      if(this.config.dotsWrapper) {
+        this.buildDots();
+        this.setDot();
+      }
+
+      // Init arrows only if both arrows are true
+      if(this.config.arrowLeft && this.config.arrowRight) {
+        this.initArrows();
+      }
 
       if(!this.config.loop) {
         this.updateArrowClass();
       }
 
       if (this.config.swipe) {
-        addListenerMulti(this.sliderInner, 'mousedown touchstart', this.startSwipe.bind(this));
+        // addListenerMulti(this.sliderInner, 'mousedown touchstart', this.startSwipe.bind(this));
       }
 
       this.isAnimating = false;

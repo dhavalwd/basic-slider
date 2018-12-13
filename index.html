@@ -201,8 +201,11 @@
           speed: 800,
           easing: 'cubic-bezier(0.6, -0.28, 0.74, 0.05)'
         },
+        onInit: (slider) => {
+          console.log("Called on slider initialization: slider Object ---> ", slider);
+        },
         onSlideChange: (slider) => {
-          console.log("This is Slider data ---> ", slider);
+          console.log("Called on slide change: slider Object ---> ", slider);
         }
       })
     });

@@ -49,6 +49,7 @@ export class BasicSlider{
         swipe: false,
         autoHeight: true,
         loop: false,
+        onInit: function onInit() {},
         onSlideChange: function onSlideChange() {}
       };
 
@@ -354,5 +355,7 @@ export class BasicSlider{
       }
 
       this.isAnimating = false;
+
+      this.config.onInit(this);
     }
 }

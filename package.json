@@ -1,6 +1,6 @@
 {
   "name": "@dhavalvyas/basic-slider",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Basic Slider - Simple Slider with Simple API",
   "main": "dist/index.js",
   "unpkg": "dist/index.js",

@@ -28,6 +28,7 @@ _This is minified version._
 ```html
 <script type="text/javascript" src="https://unpkg.com/@dhavalvyas/basic-slider/dist/index.js"></script>
 ```
+Demo using direct `<script>` tag. [Basic Slider - Demo](https://codepen.io/cooldhavs/full/vvBKzr "Basic Slider - Demo")
 
 OR
 
@@ -35,13 +36,15 @@ OR
 
 `npm i @dhavalvyas/basic-slider`
 
+Demo using direct `npm`. [Basic Slider - Demo](https://dhavalwd.github.io/basic-slider/ "Basic Slider - Demo")
+
 ## Instructions
 
 ### DEMO
 
 Here is the codepen link for the current working demo.
 
-[Basic Slider Demo](https://codepen.io/cooldhavs/full/vvBKzr "Basic Slider Demo")
+[Basic Slider - Demo](https://codepen.io/cooldhavs/full/vvBKzr "Basic Slider - Demo")
 
 ## Options
 

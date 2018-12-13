@@ -133,7 +133,7 @@ export class BasicSlider{
     initArrows() {
       if (this.config.arrowLeft != '') {
         $(this.config.arrowLeft).addEventListener('click', () => {
-          if (!hasClass(this.config.selector, 'isAnimating')) {
+          if (!hasClass(this.selector, 'isAnimating')) {
             if (this.curSlide == 1) {
               if(!this.config.loop) {
                 return;
@@ -152,7 +152,7 @@ export class BasicSlider{
 
       if (this.config.arrowRight != '') {
         $(this.config.arrowRight).addEventListener('click', () => {
-          if (!hasClass(this.config.selector, 'isAnimating')) {
+          if (!hasClass(this.selector, 'isAnimating')) {
             if (this.curSlide == this.innerElements.length) {
               if(!this.config.loop) {
                 return;
@@ -207,13 +207,13 @@ export class BasicSlider{
     }
 
     updateSliderDimension() {
-      this.slideW = parseInt($(this.config.selector).querySelectorAll('.item')[0].offsetWidth);
+      this.slideW = parseInt(this.allSlides[0].offsetWidth);
       this.sliderInner.style.left = this.config.loop ? -this.slideW * this.curSlide + "px" : -this.slideW * (this.curSlide - 1) + "px";
       if (this.config.autoHeight) {
-        $(this.config.selector).style.height = $(this.config.selector).querySelectorAll('.item')[this.curSlide].offsetHeight + "px";
+        this.selector.style.height = this.allSlides[this.curSlide].offsetHeight + "px";
       } else {
         for (var i = 0; i < this.totalSlides; i++) {
-          if (this.allSlides[i].offsetHeight > this.config.selector.offsetHeight) {
+          if (this.allSlides[i].offsetHeight > this.selector.offsetHeight) {
             this.config.target.style.height = this.allSlides[i].offsetHeight + "px";
           }
         }
@@ -224,10 +224,10 @@ export class BasicSlider{
       console.log("this.curSlide on Next arrow ---> ", this.curSlide);
       this.sliderInner.style.transition = 'left ' + this.config.transition.speed / 1000 + 's ' + this.config.transition.easing;
       this.sliderInner.style.left = -(this.curSlide * this.slideW) + 'px';
-      addClass($(this.config.selector), 'isAnimating');
+      addClass(this.selector, 'isAnimating');
       setTimeout(() => {
         this.sliderInner.style.transition = '';
-        removeClass($(this.config.selector), 'isAnimating');
+        removeClass(this.selector, 'isAnimating');
       }, this.config.transition.speed);
       this.setDot();
       this.updateArrowClass();
@@ -262,7 +262,7 @@ export class BasicSlider{
       if (Math.abs(this.moveX - this.startX) < 40) return;
 
       this.isAnimating = true;
-      addClass($(this.config.selector), 'isAnimating');
+      addClass(this.selector, 'isAnimating');
       e.preventDefault();
 
       if (this.curLeft + this.moveX - this.startX > 0 && this.curLeft == 0) {
@@ -304,34 +304,48 @@ export class BasicSlider{
       removeListenerMulti($('body'), 'mouseup touchend', this.swipeEnd.bind(this));
     }
 
+    buildItems() {
+      if(this.config.loop) {
+        // append clones
+        let cloneFirst = this.innerElements[0].cloneNode(true);
+        this.sliderInner.appendChild(cloneFirst);
+        let cloneLast = this.innerElements[this.totalSlides - 1].cloneNode(true);
+        this.sliderInner.insertBefore(cloneLast, this.sliderInner.firstChild);
+      }
+      // for (let i = 0; i < this.innerElements.length; i++) {
+      //   let eleContainer = document.createElement('div');
+      //   eleContainer.style.width = `${this.config.loop ? 100 / (this.totalSlides + 2) : 100 / (this.totalSlides)}%`;
+      //   leteleContainer.appendChild(this.innerElements[i]);
+      //   this.sliderInner.insertBefore(this.innerElements[i], this.sliderInner.firstChild);
+      // }
+    }
+
     init() {
+
+
       console.log("this ------> ", this);
       // Wrap all slides into slider-inner
-      let defaultMarkup = $(this.config.selector).innerHTML;
-      $(this.config.selector).innerHTML = `<div class="slider-inner">${defaultMarkup}</div>`;
-      this.sliderInner = $(this.config.selector).querySelector('.slider-inner');
+      let defaultMarkup = this.selector.innerHTML;
+      this.selector.innerHTML = `<div class="slider-inner">${defaultMarkup}</div>`;
+      this.sliderInner = this.selector.querySelector('.slider-inner');
 
       this.loadedCnt = 0;
       this.curSlide = 0;
       this.totalSlidesCount = this.config.loop ? this.totalSlides + 2 : this.totalSlides;
 
-      if(this.config.loop) {
-        // append clones
-        let cloneFirst = $(this.config.selector).querySelectorAll('.item')[0].cloneNode(true);
-        this.sliderInner.appendChild(cloneFirst);
-        let cloneLast = $(this.config.selector).querySelectorAll('.item')[this.totalSlides - 1].cloneNode(true);
-        this.sliderInner.insertBefore(cloneLast, this.sliderInner.firstChild);
-      }
+      // Build items
+      this.buildItems();
 
       // Increase curSlide number
       this.curSlide++;
 
-      this.allSlides = $(this.config.selector).querySelectorAll('.item');
+      this.allSlides = this.sliderInner.children;
 
       this.sliderInner.style.width = this.totalSlidesCount * 100 + "%";
 
-      for (var _i = 0; _i < this.totalSlidesCount ; _i++) {
+      for (var _i = 0; _i < this.totalSlides ; _i++) {
         this.allSlides[_i].style.width = 100 / this.totalSlidesCount + "%";
+        this.allSlides[_i].style.cssFloat = "left";
         this.loadedImg(this.allSlides[_i]);
       }
 

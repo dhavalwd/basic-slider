@@ -55,6 +55,7 @@ Some options you can use.
 
 ```javascript
 new BasicSlider({
+  selector: '.sliderMain',
   loop: true,
   transition: {
     speed: 800,

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>User Application</title>
+  <title>Basic Slider - Simple Slider with Simple API</title>
   <style>
     html,
     body {
@@ -39,7 +39,7 @@
       position: relative;
     }
 
-    .slider>div {
+    .sliderMain>div {
       display: flex;
     }
 
@@ -77,7 +77,7 @@
       opacity: 1;
     }
 
-    .slider {
+    .sliderMain {
       position: relative;
       width: 100%;
       text-align: center;
@@ -86,27 +86,26 @@
       overflow: hidden;
     }
 
-    .slider .slider-inner {
+    .sliderMain .slider-inner {
       position: absolute;
     }
 
-    .slider .slider-inner:after {
+    .sliderMain .slider-inner:after {
       content: "";
       display: table;
       clear: both;
     }
 
-    .slider .slider-inner .item {
-      float: left;
+    .sliderMain .slider-inner .sliderItem {
       box-sizing: border-box;
       position: relative;
     }
 
-    .slider .slider-inner .item img {
+    .sliderMain .slider-inner .sliderItem img {
       display: block;
     }
 
-    .slider .slider-inner .item span {
+    .sliderMain .slider-inner .sliderItem span {
       cursor: default;
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -168,20 +167,20 @@
 
 <body>
   <div id="app">
-    <div class="slider">
-      <div class="item">
+    <div class="sliderMain">
+      <div class="sliderItem">
         <img src="src/images/demo.jpeg" />
         <span>Slide 1</span>
       </div>
-      <div class="item">
+      <div class="sliderItem">
         <img src="src/images/demo.jpeg" />
         <span>Slide 2</span>
       </div>
-      <div class="item">
+      <div class="sliderItem">
         <img src="src/images/demo.jpeg" />
         <span>Slide 3</span>
       </div>
-      <div class="item">
+      <div class="sliderItem">
         <img src="src/images/demo.jpeg" />
         <span>Slide 4</span>
       </div>
@@ -196,6 +195,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       new BasicSlider({
+        selector: '.sliderMain',
         loop: true,
         transition: {
           speed: 800,

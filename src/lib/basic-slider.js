@@ -343,7 +343,7 @@ export class BasicSlider{
 
       this.sliderInner.style.width = this.totalSlidesCount * 100 + "%";
 
-      for (var _i = 0; _i < this.totalSlides ; _i++) {
+      for (var _i = 0; _i < this.totalSlidesCount ; _i++) {
         this.allSlides[_i].style.width = 100 / this.totalSlidesCount + "%";
         this.allSlides[_i].style.cssFloat = "left";
         this.loadedImg(this.allSlides[_i]);

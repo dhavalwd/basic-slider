@@ -11,7 +11,6 @@ export class BasicSlider{
     constructor(options){
       // Create global config object
       this.config = BasicSlider.mergeSettings(options);
-      console.log("this.config -> ", this.config);
 
       // Resolve any issue with selector
       this.selector = typeof this.config.selector === 'string' ? $(this.config.selector) : this.config.selector;
@@ -100,7 +99,6 @@ export class BasicSlider{
 
     getCurLeft() {
       this.curLeft = parseInt(this.sliderInner.style.left.split('px')[0]);
-      // console.log("this.curLeft -> ", this.curLeft);
     }
 
     loadedImg(el) {
@@ -221,7 +219,6 @@ export class BasicSlider{
     }
 
     goToSlide() {
-      console.log("this.curSlide on Next arrow ---> ", this.curSlide);
       this.sliderInner.style.transition = 'left ' + this.config.transition.speed / 1000 + 's ' + this.config.transition.easing;
       this.sliderInner.style.left = -(this.curSlide * this.slideW) + 'px';
       addClass(this.selector, 'isAnimating');
@@ -236,7 +233,6 @@ export class BasicSlider{
     }
 
     startSwipe(e) {
-      console.log(e);
       var touch = e;
       this.getCurLeft();
       if (!this.isAnimating) {
@@ -312,18 +308,24 @@ export class BasicSlider{
         let cloneLast = this.innerElements[this.totalSlides - 1].cloneNode(true);
         this.sliderInner.insertBefore(cloneLast, this.sliderInner.firstChild);
       }
-      // for (let i = 0; i < this.innerElements.length; i++) {
-      //   let eleContainer = document.createElement('div');
-      //   eleContainer.style.width = `${this.config.loop ? 100 / (this.totalSlides + 2) : 100 / (this.totalSlides)}%`;
-      //   leteleContainer.appendChild(this.innerElements[i]);
-      //   this.sliderInner.insertBefore(this.innerElements[i], this.sliderInner.firstChild);
-      // }
+    }
+
+    // TODO: reInit() method
+    reInit() {
+      // Destroy slider first and then reInit
+      // this.init();
+    }
+
+    // TODO: destroy() method
+    destroy() {
+      // remove events from Arrows
+      // remove all markup for pagination
+      // remove slider-inner
+      // remove styles from all children
+      // remove style from selector
     }
 
     init() {
-
-
-      console.log("this ------> ", this);
       // Wrap all slides into slider-inner
       let defaultMarkup = this.selector.innerHTML;
       this.selector.innerHTML = `<div class="slider-inner">${defaultMarkup}</div>`;

@@ -47,7 +47,7 @@
       margin: 0;
     }
 
-    .dots-wrapper {
+    .sliderPagination {
       position: absolute;
       width: 100px;
       left: 50%;
@@ -56,7 +56,7 @@
       text-align: center;
     }
 
-    .dots-wrapper li {
+    .sliderPagination li {
       display: inline-block;
       width: 12px;
       height: 12px;
@@ -68,12 +68,12 @@
       transition: opacity 0.3s;
     }
 
-    .dots-wrapper li:hover {
+    .sliderPagination li:hover {
       background-color: rgba(0, 0, 255, 0.4);
     }
 
-    .dots-wrapper li.active,
-    .dots-wrapper li:hover {
+    .sliderPagination li.active,
+    .sliderPagination li:hover {
       opacity: 1;
     }
 
@@ -115,8 +115,9 @@
       user-select: none;
       display: block;
       position: absolute;
-      top: 10px;
-      left: 20px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       font-size: 3em;
       letter-spacing: 1vw;
       font-family: Impact, Charcoal, sans-serif;
@@ -124,7 +125,7 @@
       z-index: 10;
     }
 
-    a[class|=arrow] {
+    a.arrow {
       position: absolute;
       display: block;
       top: 50%;
@@ -134,11 +135,11 @@
       transition: border 0.3s ease-in;
     }
 
-    a[class|=arrow].is-disabled {
+    a.arrow.is-disabled {
       border-color: rgba(0, 0, 0, 0.7);
     }
 
-    .arrow-left {
+    .prev {
       left: 20px;
       border-bottom: 6px solid #ffffff;
       border-left: 6px solid #ffffff;
@@ -146,11 +147,11 @@
       transition: left 0.5s;
     }
 
-    .arrow-left:hover {
+    .prev:hover {
       border-color: rgba(0, 0, 255, 0.4);
     }
 
-    .arrow-right {
+    .next {
       right: 20px;
       border-bottom: 6px solid #ffffff;
       border-right: 6px solid #ffffff;
@@ -158,7 +159,7 @@
       transition: right 0.5s;
     }
 
-    .arrow-right:hover {
+    .next:hover {
       border-color: rgba(0, 0, 255, 0.4);
     }
 
@@ -185,9 +186,9 @@
         <span>Slide 4</span>
       </div>
     </div>
-    <a class="arrow-left" href="javascript:void(0);"></a>
-    <a class="arrow-right" href="javascript:void(0);"></a>
-    <div class="dots-wrapper"></div>
+    <a class="prev arrow" href="javascript:void(0);"></a>
+    <a class="next arrow" href="javascript:void(0);"></a>
+    <div class="sliderPagination"></div>
   </div>
 
   <!-- plugin initialization -->
@@ -196,10 +197,13 @@
     document.addEventListener('DOMContentLoaded', function () {
       new BasicSlider({
         selector: '.sliderMain',
+        dotsWrapper: '.sliderPagination',
         loop: true,
+        arrowLeft: '.prev',
+        arrowRight: '.next',
         transition: {
           speed: 800,
-          easing: 'cubic-bezier(0.6, -0.28, 0.74, 0.05)'
+          easing: 'cubic-bezier(0.46,-0.07, 0.87, 0.04)'
         },
         onInit: (slider) => {
           console.log("Called on slider initialization: slider Object ---> ", slider);

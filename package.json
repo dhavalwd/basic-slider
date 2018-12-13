@@ -22,7 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/dhavalwd/basic-slider.git"
   },
-  "keywords": [],
+  "keywords": ["slider", "plugin", "basic", "javascript", "gallery", "carousel", "lightweight"],
   "author": "Dhaval Vyas <dhavs1989@gmail.com>",
   "license": "ISC",
   "bugs": {

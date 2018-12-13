@@ -6,7 +6,7 @@ Basic Slider - Simple Slider with Sinple API
 
 ## Installations
 
-Very easy setup. This is work in progress. For now, use same classnames and items. CSS is not included in the library.
+Very easy setup. This is work in progress. CSS is not included in the library.
 
 ### HTML Markup
 
@@ -17,12 +17,6 @@ Very easy setup. This is work in progress. For now, use same classnames and item
   </div>
   <div class="item">
     <img src="image/url/name.jpg" /> <span>Slide 2</span>
-  </div>
-  <div class="item">
-    <img src="image/url/name.jpg" /> <span>Slide 3</span>
-  </div>
-  <div class="item">
-    <img src="image/url/name.jpg" /> <span>Slide 4</span>
   </div>
 </div>
 ```
@@ -51,21 +45,24 @@ Here is the codepen link for the current working demo.
 
 ## Options
 
-Some options you can use.
+Some options to configure your slider. Below are default values.
 
 ```javascript
 new BasicSlider({
-  selector: '.sliderMain',
+  selector: '.slider',
+  dotsWrapper: '.dots-wrapper',
+  arrowLeft: '.arrow-left',
+  arrowRight: '.arrow-right',
   loop: true,
   transition: {
-    speed: 800,
+    speed: 300,
     easing: 'ease-in'
   },
   onInit: (slider) => {
-
+    console.log("onInit: slider Object ---> ", slider);
   },
   onSlideChange: (slider) => {
-    console.log("This is Slider data ---> ", slider);
+    console.log("onSlideChange: slider Object ---> ", slider);
   }
 })
 ```

@@ -1,8 +1,13 @@
-# Basic Slider
+<h1 align="center"> Basic Slider </h1>
 
-Basic Slider - Simple Slider with Sinple API
+<p align="center"> Simple Slider with Sinple API - No Dependency </p>
+
+<p align="center"><img src="basic-logo.png" /></p>
+<hr/>
 
 **_NOTE: This is purely for educational and learning purpose. Don't use this in production._**
+
+[Documentation](https://dhavalvyas.gitbook.io/basic-slider/)
 
 ## Installations
 

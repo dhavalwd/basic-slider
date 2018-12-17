@@ -131,14 +131,14 @@ export class BasicSlider{
 
     initArrows() {
       if (this.config.arrowLeft != '') {
-        $(this.config.arrowLeft).addEventListener('click', () => {
+        this.arrowLeft = $(this.config.arrowLeft);
+        this.arrowLeft.clickEvent = () => {
           if (!hasClass(this.selector, 'isAnimating')) {
             if (this.curSlide == 1) {
               if(!this.config.loop) {
                 return;
               }
               this.curSlide = this.totalSlides + 1;
-              // this.goToSlide();
               this.sliderInner.style.left = -this.curSlide * this.slideW + 'px';
             }
             this.curSlide--;
@@ -146,11 +146,14 @@ export class BasicSlider{
               this.goToSlide();
             }, 20);
           }
-        }, false);
+        };
+
+        this.arrowLeft.addEventListener('click', this.arrowLeft.clickEvent, false);
       }
 
       if (this.config.arrowRight != '') {
-        $(this.config.arrowRight).addEventListener('click', () => {
+        this.arrowRight = $(this.config.arrowRight);
+        this.arrowRight.clickEvent = () => {
           if (!hasClass(this.selector, 'isAnimating')) {
             if (this.curSlide == this.innerElements.length) {
               if(!this.config.loop) {
@@ -164,7 +167,8 @@ export class BasicSlider{
               this.goToSlide();
             }, 20);
           }
-        }, false);
+        };
+        this.arrowRight.addEventListener('click', this.arrowRight.clickEvent, false);
       }
     }
 
@@ -343,19 +347,31 @@ export class BasicSlider{
       return elementContainer;
     }
 
-    // TODO: reInit() method
+    // reInit() method
     reInit() {
       // Destroy slider first and then reInit
-      // this.init();
+      this.init();
     }
 
-    // TODO: destroy() method
-    destroy() {
-      // remove events from Arrows
+    // destroy() method
+    destroy(callback) {
+      // remove click events from Arrows
+      this.arrowLeft.removeEventListener('click', this.arrowLeft.clickEvent, false);
+      this.arrowRight.removeEventListener('click', this.arrowRight.clickEvent, false);
       // remove all markup for pagination
-      // remove slider-inner
-      // remove styles from all children
-      // remove style from selector
+      $(this.config.dotsWrapper).innerHTML = '';
+      // remove all plugin generated markup
+      const slides = document.createDocumentFragment();
+      for (let i = 0; i < this.innerElements.length; i++) {
+        slides.appendChild(this.innerElements[i]);
+      }
+      this.selector.innerHTML = '';
+      this.selector.appendChild(slides);
+      this.selector.removeAttribute('style');
+
+      if (callback) {
+        callback(this);
+      }
     }
 
     init() {

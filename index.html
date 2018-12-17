@@ -32,6 +32,13 @@
       line-height: 30px;
     }
 
+    .container {
+      max-width: 620;
+      width: 620px;
+      margin: 32px auto 0;
+      position: relative;
+    }
+
     #app {
       max-width: 620;
       width: 620px;
@@ -158,40 +165,74 @@
       border-color: rgba(0, 0, 255, 0.4);
     }
 
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .destroyButton, .reInitButton {
+      display: inline-block;
+      padding: 16px;
+      text-decoration: none;
+    }
+
+    .destroyButton:hover, .reInitButton:hover {
+      opacity: 0.6;
+    }
+
+    .destroyButton {
+      background-color: #ff3700;
+      color: white;
+      margin-right: 16px;
+    }
+
+    .reInitButton {
+      background-color: #14a014;
+      color: black;
+    }
+
   </style>
 </head>
 
 <body>
-  <div id="app">
-    <div class="sliderMain">
-      <div class="sliderItem">
-        <img src="src/images/demo.jpeg" />
-        <span>Slide 1</span>
-      </div>
-      <div class="sliderItem">
-        <img src="src/images/demo.jpeg" />
-        <span>Slide 2</span>
-      </div>
-      <div class="sliderItem">
-        <img src="src/images/demo.jpeg" />
-        <span>Slide 3</span>
-      </div>
-      <div class="sliderItem">
-        <img src="src/images/demo.jpeg" />
-        <span>Slide 4</span>
-      </div>
+  <div class="container">
+    <div class="buttons">
+      <a href="#" class="destroyButton">Destroy</a>
+      <a href="#" class="reInitButton">ReInit</a>
     </div>
-    <a class="prev arrow" href="javascript:void(0);"></a>
-    <a class="next arrow" href="javascript:void(0);"></a>
-    <div class="sliderPagination"></div>
+    <div id="app">
+      <div class="sliderMain">
+        <div class="sliderItem">
+          <img src="src/images/demo.jpeg" />
+          <span>Slide 1</span>
+        </div>
+        <div class="sliderItem">
+          <img src="src/images/demo.jpeg" />
+          <span>Slide 2</span>
+        </div>
+        <div class="sliderItem">
+          <img src="src/images/demo.jpeg" />
+          <span>Slide 3</span>
+        </div>
+        <div class="sliderItem">
+          <img src="src/images/demo.jpeg" />
+          <span>Slide 4</span>
+        </div>
+      </div>
+      <a class="prev arrow" href="javascript:void(0);"></a>
+      <a class="next arrow" href="javascript:void(0);"></a>
+      <div class="sliderPagination"></div>
+    </div>
   </div>
 
   <!-- plugin initialization -->
   <script src="index.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      new BasicSlider({
+      let slider = new BasicSlider({
         selector: '.sliderMain',
+        dotsWrapper: '.sliderPagination',
         loop: true,
         arrowLeft: '.prev',
         arrowRight: '.next',
@@ -205,7 +246,19 @@
         onSlideChange: (slider) => {
           console.log("Called on slide change: slider Object ---> ", slider);
         }
-      })
+      });
+
+      reInitButton = document.querySelector('.reInitButton');
+      reInitButton.addEventListener('click', () => {
+        slider.reInit();
+      }, false);
+
+      destroyButton = document.querySelector('.destroyButton');
+      destroyButton.addEventListener('click', () => {
+        slider.destroy(() => {
+          console.log("Slider is destroyed");
+        });
+      }, false);
     });
 
   </script>

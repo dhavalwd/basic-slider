@@ -51,7 +51,7 @@ Here is the codepen link for the current working demo.
 Some options to configure your slider. Below are default values.
 
 ```javascript
-new BasicSlider({
+let slider = new BasicSlider({
   selector: '.slider',
   dotsWrapper: '.dots-wrapper',
   arrowLeft: '.arrow-left',
@@ -67,5 +67,17 @@ new BasicSlider({
   onSlideChange: (slider) => {
     console.log("onSlideChange: slider Object ---> ", slider);
   }
+})
+```
+
+### Methods you can use:
+
+```javascript
+// Re-initialize the slider
+slider.reInit();
+
+// Destroy slider
+slider.destroy(() => {
+  console.log("This is a callback once Slider is destroyed");
 })
 ```

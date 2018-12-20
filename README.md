@@ -1,6 +1,6 @@
 <h1 align="center"> Basic Slider </h1>
 
-<p align="center"> Simple Slider with Sinple API - No Dependency </p>
+<p align="center"> Simple Slider with Simple API - No Dependency </p>
 
 <p align="center"><img src="basic-logo.png" /></p>
 <hr/>
@@ -75,7 +75,7 @@ let slider = new BasicSlider({
 })
 ```
 
-### Methods you can use:
+### Methods you can use
 
 ```javascript
 // Re-initialize the slider

@@ -53,9 +53,9 @@ export class BasicSlider{
         onSlideChange: function onSlideChange() {}
       };
 
-      const userSttings = options;
-      for (const attrname in userSttings) {
-        settings[attrname] = userSttings[attrname];
+      const userSettings = options;
+      for (const attrname in userSettings) {
+        settings[attrname] = userSettings[attrname];
       }
 
       return settings;
@@ -375,6 +375,10 @@ export class BasicSlider{
     }
 
     init() {
+      // don't initialize, if total slides are 1 or less than that.
+      if(this.totalSlides <= 1) {
+        return false;
+      }
       // Some default values
       this.loadedCnt = 0;
       this.curSlide = 0;
@@ -396,7 +400,7 @@ export class BasicSlider{
         this.updateSliderDimension();
       }), false);
 
-      // Update relavant dimension
+      // Update relevant dimension
       this.updateSliderDimension();
 
       // Build and set dots only if its true
